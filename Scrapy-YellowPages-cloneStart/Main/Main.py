@@ -1,20 +1,24 @@
+#built ins
 import subprocess
 import os
+
+#csv processing
 import pandas as pd
+
+#tkinter 
 import customtkinter as ctk
 from tkinter import messagebox, Frame, Listbox, Scrollbar
 
-
+#supabase import
 import os
 from supabase import create_client, Client
 
+# Supabase Init Connection
 url = ("https://ojfujjzsmsiizopneboj.supabase.co")
 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qZnVqanpzbXNpaXpvcG5lYm9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc3NTY5MDYsImV4cCI6MjA0MzMzMjkwNn0.w0yVyUnEEZJAB7W9-cAU6Gv2-Yym_Dm6aggr1KrYbbY"
 supabase: Client = create_client(url, key)
 
-
-
-# Specify the relative path to the script you want to run
+# Specify spider location (web scraper)
 script_path = os.path.abspath('Scrapy-YellowPages-cloneStart/Scrapy-YellowPages-master/yellowp/spiders/ylp.py')
 
 # Initialize global variables
@@ -35,7 +39,7 @@ def filterTable(df):
 
     return filtered_df
 
-# Function to run the subprocess
+# Function to run the spider (web scraper)
 def runSubprocess():
     global professionString, locationString, stateCode, filtered_df
     
@@ -138,10 +142,13 @@ def selectCompany(row):
 
     app.destroy()  # Close the application
 
-# Initialize the customtkinter application
+# Build Custom tkinter application
+
+# Ithemes
 ctk.set_appearance_mode("dark")  # Options: "dark", "light", "system"
 ctk.set_default_color_theme("blue")  # Change the theme color
 
+# init app frame
 app = ctk.CTk()
 app.title("Yellow Pages Scraper")
 app.geometry("400x600")
@@ -171,5 +178,5 @@ state_code_entry.pack(pady=(0, 10))
 run_button = ctk.CTkButton(app, text="Run Scraper", command=runSubprocess)
 run_button.pack(pady=(20, 10))
 
-# Start the main loop
+# Start the main loop - run until killed
 app.mainloop()
