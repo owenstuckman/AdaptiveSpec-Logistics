@@ -4,6 +4,16 @@ import pandas as pd
 import customtkinter as ctk
 from tkinter import messagebox, Frame, Listbox, Scrollbar
 
+
+import os
+from supabase import create_client, Client
+
+url = ("https://ojfujjzsmsiizopneboj.supabase.co")
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9qZnVqanpzbXNpaXpvcG5lYm9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc3NTY5MDYsImV4cCI6MjA0MzMzMjkwNn0.w0yVyUnEEZJAB7W9-cAU6Gv2-Yym_Dm6aggr1KrYbbY"
+supabase: Client = create_client(url, key)
+
+
+
 # Specify the relative path to the script you want to run
 script_path = os.path.abspath('Scrapy-YellowPages-cloneStart/Scrapy-YellowPages-master/yellowp/spiders/ylp.py')
 
@@ -118,8 +128,15 @@ def showCompanyDetails(row):
 def selectCompany(row):
     global selected_company
     selected_company = row['Name']
-    print(f"Selected Company: {selected_company}")  # Replace with your variable usage
+    print(f"Selected Company: {selected_company}")  
     messagebox.showinfo("Selection", f"You selected: {selected_company}")
+    response = (
+    supabase.table("DataStore")
+    .insert({"name": f"{selected_company}"})
+    .execute()
+    )
+
+    app.destroy()  # Close the application
 
 # Initialize the customtkinter application
 ctk.set_appearance_mode("dark")  # Options: "dark", "light", "system"
