@@ -16,12 +16,12 @@ class YlpSpider(scrapy.Spider):
             # Extract the company name
             name = company.xpath('.//div[@class="info-section info-primary"]/h2/a/span/text()').getall()
             extraInfo = company.xpath('.//div["street-address]"]/text()').getall()
-            locality = company.xpath('.//div["locality]"]/text()').getall()
-            categories = company.xpath('.//div["ratings]"]/text()').getall()
-            links = company.xpath('.//div["links]"]/text()').getall()
-            badges = company.xpath('.//div["badges]"]/text()').getall()
-            amenities = company.xpath('.//div["amenities]"]/text()').getall()
-            categories = company.xpath('.//div["categories]"]/text()').getall()
+            locality = company.xpath('.//div[@class="locality"]/text()').getall()
+            categories = company.xpath('.//div[@class="ratings"]/text()').getall()
+            links = company.xpath('.//div[@class="links"]/text()').getall()
+            badges = company.xpath('.//div[@class="badges"]/text()').getall()
+            amenities = company.xpath('.//div[@class="amenities"]/text()').getall()
+            categories = company.xpath('.//div[@class="categories"]/text()').getall()
             
             
             
