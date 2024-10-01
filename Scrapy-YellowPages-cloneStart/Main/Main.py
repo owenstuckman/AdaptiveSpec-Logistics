@@ -1,24 +1,14 @@
-import sys
+# run_spider.py
+import subprocess
 import os
-from scrapy.crawler import CrawlerProcess
-
-# Import spider
-file_path = "C:/Users/ostuc/Documents/GitHub/YellowPageScrapeQuick/Scrapy-YellowPages-cloneStart/Scrapy-YellowPages-master/yellowp/spiders/ylp.py"
-
-
-# Get the directory containing the file
-directory_path = os.path.dirname(file_path)
-
-# Add the directory to the Python path
-sys.path.append(directory_path)
-
-# Import the file as a module
-import ylp
-
 
 if __name__ == "__main__":
-    process = CrawlerProcess()
+    # Specify the relative path to the script you want to run
+    script_path = os.path.abspath('../yellowp/spiders/ylp.py')
+    
+    # Run the script as a separate process
+    subprocess.run(["python", script_path])  # Adjust to "python3" if needed
 
-    # Add your spider to the process
-    process.crawl(ylp)
-    process.start()  # The script will block here until the crawling is finished
+    ouput_path = os.path.abspath("output.csv")
+    os.remove(ouput_path)
+
