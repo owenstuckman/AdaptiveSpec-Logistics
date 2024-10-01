@@ -33,7 +33,10 @@ class YlpSpider(scrapy.Spider):
 
 
 if __name__ == "__main__":
-    process = CrawlerProcess()
+    process = CrawlerProcess(settings={
+        'FEED_FORMAT': 'csv',  # Change format if needed
+        'FEED_URI': '../../../output.csv',  # Change to your desired output path
+    })
 
     # Add your spider to the process
     process.crawl(YlpSpider)
