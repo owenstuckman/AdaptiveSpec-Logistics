@@ -4,7 +4,7 @@ import scrapy
 class YlpSpider(scrapy.Spider):
     name = "ylp"
     allowed_domains = ["yellowpages.com"]
-    start_urls = ['http://www.yellowpages.com/search?search_terms=Translation&geo_location_terms=Virginia+Beach%2C+VA']
+    start_urls = ['http://www.yellowpages.com/search?search_terms=Electicians&geo_location_terms=Blacksburg%2C+VA']
     
     def parse(self, response):
         # Select each company listing based on the class "info"
@@ -12,7 +12,7 @@ class YlpSpider(scrapy.Spider):
         
         for company in companies:
             # Extract the company name
-            name = company.xpath('.//h2[@class="n"]/a/span[@itemprop="name"]/text()').extract_first()
+            name = company.xpath('.//div[@class="n"]/a/div[@class="business-name"]/a/span/text()').extract_first()
             
             # Extract the company phone number
             phone = company.xpath('.//div[@class="phones phone primary"]/text()').extract_first()
