@@ -15,6 +15,15 @@ class YlpSpider(scrapy.Spider):
         for company in companies:
             # Extract the company name
             name = company.xpath('.//div[@class="info-section info-primary"]/h2/a/span/text()').getall()
+            extraInfo = company.xpath('.//div["street-address]"]/text()').getall()
+            locality = company.xpath('.//div["locality]"]/text()').getall()
+            categories = company.xpath('.//div["ratings]"]/text()').getall()
+            links = company.xpath('.//div["links]"]/text()').getall()
+            badges = company.xpath('.//div["badges]"]/text()').getall()
+            amenities = company.xpath('.//div["amenities]"]/text()').getall()
+            categories = company.xpath('.//div["categories]"]/text()').getall()
+            
+            
             
             # Extract the company phone number
             phone = company.xpath('.//div[@class="phones phone primary"]/text()').extract_first()
@@ -27,7 +36,14 @@ class YlpSpider(scrapy.Spider):
             yield {
                 'Name': name,
                 'Phone': phone,
-                'Website': website
+                'Website': website,
+                'TonsOfInfo': extraInfo,
+                'Locality' : locality,
+                'Categories' : categories,
+                'Links' : links,
+                'Badges' : badges,
+                'Amenities': amenities
+                
             }
 
 
@@ -35,10 +51,12 @@ class YlpSpider(scrapy.Spider):
 if __name__ == "__main__":
     process = CrawlerProcess(settings={
         'FEED_FORMAT': 'csv',  # Change format if needed
-        'FEED_URI': '../../../output.csv',  # Change to your desired output path
+        'FEED_URI': 'Scrapy-YellowPages-cloneStart/Main/output.csv',  # Change to your desired output path
     })
 
+# Scrapy-YellowPages-cloneStart/Scrapy-YellowPages-master/yellowp/spiders/ylp.py
     # Add your spider to the process
     process.crawl(YlpSpider)
     process.start()  # The script will block here until the crawling is finished
+    print("output should be complete")
     
