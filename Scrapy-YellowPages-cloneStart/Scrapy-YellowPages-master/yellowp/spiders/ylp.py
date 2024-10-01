@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+from scrapy.crawler import CrawlerProcess
 
 class YlpSpider(scrapy.Spider):
     name = "ylp"
@@ -13,7 +14,7 @@ class YlpSpider(scrapy.Spider):
 		# /html/body/div[1]/div[2]/div[1]/div[1]/div[4]/div[2]/div[3]/div/div/div[2]/div[1]/h2/a/span
         for company in companies:
             # Extract the company name
-            name = company.xpath('/html/body/div[1]/div[2]/div[1]/div[1]/div[4]/div[2]/div[3]/div/div/div[2]/div[1]/h2/a/span/text()').extract_first()
+            name = company.xpath('.//div[@class="info-section info-primary"]/h2/a/span/text()').getall()
             
             # Extract the company phone number
             phone = company.xpath('.//div[@class="phones phone primary"]/text()').extract_first()
@@ -21,9 +22,20 @@ class YlpSpider(scrapy.Spider):
             # Extract the company website link
             website = company.xpath('.//div[@class="links"]/a/@href').extract_first()
             
+            
             # Yield a dictionary containing the extracted data
             yield {
                 'Name': name,
                 'Phone': phone,
                 'Website': website
             }
+
+
+
+if __name__ == "__main__":
+    process = CrawlerProcess()
+
+    # Add your spider to the process
+    process.crawl(YlpSpider)
+    process.start()  # The script will block here until the crawling is finished
+    
