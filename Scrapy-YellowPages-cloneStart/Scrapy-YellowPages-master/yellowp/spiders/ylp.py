@@ -13,9 +13,10 @@ import sys
 class YlpSpider(scrapy.Spider):
     name = "ylp"
     allowed_domains = ["yellowpages.com"]
-    start_urls = [f'http://www.yellowpages.com/search?search_terms={sys.argv[1]}&geo_location_terms={sys.argv[2]}%2C+VA']
+    start_urls = [f'http://www.yellowpages.com/search?search_terms={sys.argv[1]}&geo_location_terms={sys.argv[2]}%2C+{sys.argv[3]}']
+   
     
-# original testing url: http://www.yellowpages.com/search?search_terms=Electicians&geo_location_terms=Blacksburg%2C+VA
+	# original testing url: http://www.yellowpages.com/search?search_terms=Electicians&geo_location_terms=Blacksburg%2C+VA
 
     def parse(self, response):
         # Select each company listing based on the class "info"
@@ -61,4 +62,4 @@ if __name__ == "__main__":
     process.crawl(YlpSpider)
     process.start()  # The script will block here until the crawling is finished
     print("output should be complete")
-    
+    print(f'http://www.yellowpages.com/search?search_terms={sys.argv[1]}&geo_location_terms={sys.argv[2]}%2C+{sys.argv[3]}')

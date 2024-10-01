@@ -11,9 +11,10 @@ if __name__ == "__main__":
 
     professionString = "Plumbers"
     locationString = "Colombus"
+    stateCode = "OH"
 
     # need to input for the parameters
-    subprocess.run(["python", script_path, professionString, locationString]) 
+    subprocess.run(["python", script_path, professionString, locationString, stateCode]) 
 
     print("done with subprocess")
 
@@ -21,12 +22,14 @@ if __name__ == "__main__":
 
 
     # Ensure has basic column data i am looking for 
-    filtered_df = df.dropna(subset=['Name', 'Phone', 'Website'])
+    filtered_df = df.dropna(subset=['Name', 'Phone', 'Website', 'Locality'])
 
     filtered_df = df[df['Locality'].str.contains(locationString, case=False, na=False)]
 
     # filters to optimize selection
     filtered_df = df[df['TonsOfInfo'].str.contains("Business", case=False, na=False)]
+
+    filtered_df = df[df['TonsOfInfo'].str.contains("Accredited", case=False, na=False)]
 
     
 
