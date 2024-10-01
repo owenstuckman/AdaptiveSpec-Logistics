@@ -8,7 +8,7 @@ if __name__ == "__main__":
     script_path = os.path.abspath('Scrapy-YellowPages-cloneStart/Scrapy-YellowPages-master/yellowp/spiders/ylp.py')
     
     # Run the script as a separate process
-    subprocess.run(["python", script_path]) 
+    subprocess.run(["python", script_path, "Plumbers", "Blacksburg"]) 
 
     print("done with subprocess")
 
